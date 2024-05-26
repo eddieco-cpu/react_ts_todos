@@ -1,8 +1,13 @@
+import Todo from "./components/Todo/"
+
+import "./App.css";
 
 function App() {
   return (
-    <div className=" bg-slate-900 min-h-screen w-full p-1">
-      <h1>Hello Project</h1>
+    <div className="App">
+      <main className="App-body">
+        <Todo />
+      </main>
     </div>
   )
 }
