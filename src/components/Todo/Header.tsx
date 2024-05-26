@@ -1,17 +1,22 @@
-import React, { useState } from "react"
+import React from "react"
 
-export default function Header() {
+type Props = {
+  isOpen: boolean,
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>  //note 3
+}
+
+export default function Header(props: Props) {
   //
-  const [isOpen, setIsOpen] = useState(true)
+  const { isOpen, setIsOpen } = props
 
   //
-  const handleSetIsOpen = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const handleSetIsOpen = (e: React.MouseEvent<HTMLButtonElement>): void => { //note 1
     e.preventDefault()
     setIsOpen(!isOpen)
   }
 
   return (
-    <form className="flex flex-col gap-3 justify-center items-center bg-slate-700 p-3"
+    <form className="flex flex-col justify-center items-center bg-slate-700 p-3"
       onSubmit={() => console.log("@@ submit @@")}
     >
       <section
@@ -47,8 +52,10 @@ export default function Header() {
               </label>
             </p>
           </div>
-          <select className=" text-zinc-700 w-full focus:outline-none focus:bg-slate-200 p-1">
-            <option value="" disabled selected>type</option>
+          <select className=" text-zinc-700 w-full focus:outline-none focus:bg-slate-200 p-1"
+            defaultValue={""}
+          >
+            <option value="" disabled>type</option>
             <option value="home">home</option>
             <option value="work">work</option>
             <option value="study">study</option>
@@ -57,7 +64,11 @@ export default function Header() {
         </div>
 
       </section>
-      <div className="h-[1px] bg-slate-400 w-full" />
+
+      <section className={"w-full py-3 transition-all duration-200 delay-300 ease-linear " + (isOpen ? "pt-3" : "pt-0")}>
+        <div className={"h-[1px] w-full " + (isOpen ? "bg-slate-400" : " bg-slate-400")} />
+      </section>
+
       <section className="w-full flex justify-end items-center gap-2">
         <button
           type="submit"
