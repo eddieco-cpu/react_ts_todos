@@ -41,6 +41,7 @@ export default function Header(props: Props) {
 
         <div className="w-28 ">
           <div className=" mb-2">
+            <p>is it completed</p>
             <p className=" flex justify-between items-center  p-1">
               <label htmlFor="okCompleted" className=" flex justify-start items-center gap-1">
                 Yes
@@ -78,7 +79,7 @@ export default function Header(props: Props) {
           Add
         </button>
         <button
-          className={"block h-9 aspect-square border-[1px] rounded-full transition-all duration-500 hover:bg-slate-800 active:bg-slate-600 flex-shrink-0 " + (isOpen ? "" : "transform rotate-[540deg]")}
+          className={"block h-9 aspect-square border-[1px] rounded-full transition-all ease-linear duration-500 hover:bg-slate-800 active:bg-slate-600 flex-shrink-0 " + (isOpen ? "" : "transform rotate-[540deg]")}
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleSetIsOpen(e)}
         >
           ▽
