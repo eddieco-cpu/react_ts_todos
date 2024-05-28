@@ -8,9 +8,11 @@ export type TodoType = "home" | "work" |"study" | "others"
 export type Todo = {
   id: string,
   title: string,
-  notes?: string,
+  notes: string,
   isCompleted: boolean,
-  type: TodoType
+  type: TodoType,
+  createdAt: string,
+  updatedAt: string
 }
 export type Todos = Todo[]
 
@@ -18,9 +20,7 @@ export type Todos = Todo[]
 export default function index() {
   //
   const [isOpen, setIsOpen] = useState(true)
-  const [todos, setTodos] = useState<Todos>([
-    
-  ])
+  const [todos, setTodos] = useState<Todos>([])
 
 
   return (

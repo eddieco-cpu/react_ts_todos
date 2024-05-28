@@ -1,13 +1,17 @@
 import React from "react"
-import { generateUniqueId } from '@utils/helpers'
+import dayjs, {Dayjs} from 'dayjs';
 
-import { Todos, Todo } from "./index" //type
+import { generateUniqueId, formatDate } from '@utils/helpers'
+
+import { Todos, Todo, TodoType } from "./index" //type
 
 type Props = {
   isOpen: boolean,
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>  //note 3
   setTodos: React.Dispatch<React.SetStateAction<Todos>>
 }
+
+type NewTodoViaForm = Pick<Todo, "title" | "notes" | "isCompleted" | "type">  //note 5
 
 export default function Header(props: Props) {
   //
@@ -27,20 +31,33 @@ export default function Header(props: Props) {
     const formData = new FormData(e.currentTarget);
     const formValues = Object.fromEntries(formData.entries());
 
-    console.log('Form submitted with values:', formValues);
-
     const id = generateUniqueId()
-    console.log("id", id)
+    const createdAt: Dayjs = dayjs();
 
+    //?
+    const createdTodo: NewTodoViaForm = {
+      title: formValues.title as string,
+      notes: formValues.notes as string,
+      isCompleted: formValues.isCompleted === "yes",
+      type: formValues.type as TodoType //不寫報錯，寫了產生隱藏 bug
+    }
+
+    //w1
     // const newTodo: Todo = {
-    //   id: Date.now().toString(36) + Math.random().toString(36).substring(2, 15),
-    //   title,
-    //   notes,
-    //   isCompleted,
-    //   type
+    //   id,
+    //   createdAt: formatDate(createdAt),
+    //   updatedAt: formatDate(createdAt),
+    //   ...createdTodo
     // }
-
     // setTodos((prev) => [...prev, newTodo])
+
+    //w2
+    setTodos((prev) => [...prev, {
+      id,
+      createdAt: formatDate(createdAt),
+      updatedAt: formatDate(createdAt),
+      ...createdTodo
+    }])
 
     form.reset()
   }
